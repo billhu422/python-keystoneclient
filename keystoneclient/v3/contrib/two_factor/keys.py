@@ -81,12 +81,8 @@ class KeyManager(base.Manager):
                                             response_key="two_factor_auth")
 
     def check_security_question(self, user, security_answer):
-        data = {}
-        data["two_factor_auth"] = {}
-        data["two_factor_auth"]["security_answer"] = security_answer
 
-        return super(KeyManager, self)._head(body=data,
-                                            url=self._security_question_url(user))
+        return super(KeyManager, self)._head(url=self._security_question_url(user) + '?sec_answer=' + security_answer)
 
     def remember_device(self, **kwargs):
         return super(KeyManager, self)._post(body={},
